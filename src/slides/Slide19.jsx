@@ -3,29 +3,23 @@ import React, { useState, useEffect } from 'react';
 const Slide19 = ({ isActive }) => {
     const [phase, setPhase] = useState(0);
 
-    const diffItems = [
-        "- Removed:    33,000 ancestral land titles",
-        "- Deleted:    Bagani governance system",
-        "- Overwrote:  Hunting grounds with private lots",
-        "- Method:     Tax declarations, legal paperwork"
+    const logs = [
+        { id: "01", target: "33,000 Ancestral Land Titles", status: "NULLIFIED", color: "text-red-500" },
+        { id: "02", target: "Bagani Governance System", status: "ERASED", color: "text-red-500" },
+        { id: "03", target: "Communal Hunting Grounds", status: "PRIVATIZED", color: "text-red-500" },
     ];
 
     useEffect(() => {
         if (isActive) {
             const timers = [
-                setTimeout(() => setPhase(1), 0),      // commit tag
-                setTimeout(() => setPhase(2), 800),    // author
-                setTimeout(() => setPhase(3), 1600),   // divider
-                setTimeout(() => setPhase(4), 2000),   // diff 1
-                setTimeout(() => setPhase(5), 2900),   // diff 2
-                setTimeout(() => setPhase(6), 3800),   // diff 3
-                setTimeout(() => setPhase(7), 4700),   // diff 4
-                setTimeout(() => setPhase(8), 5900),   // divider 2
-                setTimeout(() => setPhase(9), 6700),   // note 1
-                setTimeout(() => setPhase(10), 7400),  // note 2
-                setTimeout(() => setPhase(11), 9400),  // final pause
-                setTimeout(() => setPhase(12), 10900), // JUST A PEN (1.5s fade)
-                setTimeout(() => setPhase(13), 11900)  // overlay darken
+                setTimeout(() => setPhase(1), 300),   // Title background
+                setTimeout(() => setPhase(2), 1000),  // Log 1
+                setTimeout(() => setPhase(3), 1800),  // Log 2
+                setTimeout(() => setPhase(4), 2600),  // Log 3
+                setTimeout(() => setPhase(5), 4500),  // No swords
+                setTimeout(() => setPhase(6), 5500),  // No war
+                setTimeout(() => setPhase(7), 7500),  // JUST A PEN
+                setTimeout(() => setPhase(8), 8000),  // Massive red pulse
             ];
             return () => timers.forEach(clearTimeout);
         } else {
@@ -34,69 +28,96 @@ const Slide19 = ({ isActive }) => {
     }, [isActive]);
 
     return (
-        <div className="w-full h-full bg-[#060404] flex flex-col items-center justify-center relative overflow-hidden">
-            {/* Darken Overlay */}
-            <div
-                className={`absolute inset-0 bg-black z-40 transition-opacity duration-[2000ms] pointer-events-none ${phase >= 13 ? 'opacity-30' : 'opacity-0'}`}
-            />
+        <div className={`w-full min-h-full transition-colors duration-2000 flex flex-col items-center justify-center overflow-x-hidden relative p-8 lg:p-12 ${phase >= 8 ? 'bg-[#0a0000]' : 'bg-[#000000]'}`}>
 
-            <div className="max-w-[680px] w-full px-8 flex flex-col items-center text-center relative z-10 transition-all duration-1000">
-                <div
-                    className={`commit-box bg-[var(--terminal)] border border-red-900/20 p-8 md:p-12 w-full text-left transition-all duration-1000 ${phase >= 1 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-[0.98]'}`}
-                >
-                    {/* Header Info */}
-                    <div className="mb-4">
-                        <div className={`mono text-[var(--muted)] text-[0.75rem] transition-opacity duration-300 ${phase >= 1 ? 'opacity-100' : 'opacity-0'}`}>
-                            commit 4f8b10 — 1946
+            {/* Background Marquee Text */}
+            <div className={`absolute inset-0 flex flex-col justify-around overflow-hidden pointer-events-none transition-opacity duration-[3000ms] ${phase >= 1 ? 'opacity-[0.03]' : 'opacity-0'}`}>
+                <div className="playfair font-black text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none whitespace-nowrap text-white animate-[marquee_30s_linear_infinite]">
+                    LEGAL PAPERWORK • TAX DECLARATIONS • THE LAND REGISTRATION ACT OF 1902 • LEGAL PAPERWORK • TAX DECLARATIONS • THE LAND REGISTRATION ACT OF 1902 •
+                </div>
+                <div className="playfair font-black text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none whitespace-nowrap text-red-500 animate-[marquee_40s_linear_infinite_reverse]">
+                    SYSTEM OVERWRITE • LEGAL PAPERWORK • TAX DECLARATIONS • SYSTEM OVERWRITE • LEGAL PAPERWORK • TAX DECLARATIONS •
+                </div>
+                <div className="playfair font-black text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none whitespace-nowrap text-white animate-[marquee_35s_linear_infinite]">
+                    LEGAL PAPERWORK • TAX DECLARATIONS • THE LAND REGISTRATION ACT OF 1902 • LEGAL PAPERWORK • TAX DECLARATIONS • THE LAND REGISTRATION ACT OF 1902 •
+                </div>
+            </div>
+
+            <div className="max-w-[1400px] w-full z-10 relative flex flex-col lg:flex-row gap-12 lg:gap-20 items-center lg:items-end mt-12 mb-12 lg:my-0 lg:h-[600px]">
+
+                {/* LEFT: DELETION LOG */}
+                <div className="w-full lg:w-[60%] flex flex-col gap-6">
+                    <div className={`border-l-4 border-red-600 pl-6 mb-4 lg:mb-8 transition-all duration-1000 ${phase >= 1 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+                        <div className="mono text-red-500/80 tracking-[0.4em] uppercase text-[0.7rem] md:text-[0.8rem] mb-3 font-bold">
+                            OPERATION // 1946_OVERWRITE
                         </div>
-                        <div className={`mono text-white/60 text-[0.75rem] mt-1 transition-opacity duration-300 ${phase >= 2 ? 'opacity-100' : 'opacity-0'}`}>
-                            Author: Unknown Settlers
-                        </div>
+                        <h2 className="playfair text-5xl md:text-6xl lg:text-7xl font-black text-white uppercase tracking-wider leading-[0.9]">
+                            System<br />
+                            <span className="text-red-500 italic block mt-1">Eradication.</span>
+                        </h2>
                     </div>
 
-                    <div className={`h-[1px] bg-red-900/10 w-full my-6 transition-all duration-500 origin-left ${phase >= 3 ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'}`} />
-
-                    {/* Diff Items */}
-                    <div className="space-y-3 mb-8">
-                        {diffItems.map((item, i) => (
+                    <div className="flex flex-col gap-4">
+                        {logs.map((log, i) => (
                             <div
                                 key={i}
-                                className={`mono text-[0.8rem] transition-all duration-500 overflow-hidden ${phase >= (4 + i) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`}
+                                className={`relative bg-[#050000] border border-red-900/30 p-6 md:p-8 flex flex-col xl:flex-row justify-between xl:items-center gap-4 group transition-all duration-700 transform hover:bg-[#100000] hover:border-red-500/50 shadow-[0_10px_30px_rgba(0,0,0,0.5)] cursor-default overflow-hidden ${phase >= i + 2 ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}
                             >
-                                <span className="text-red-500 mr-4">-</span>
-                                <span className="text-white/70">{item.substring(2)}</span>
+                                <div className="flex gap-4 items-center z-10 relative">
+                                    <span className="mono text-red-900/50 text-xl font-bold md:pt-1">[{log.id}]</span>
+                                    {/* Line-through effect text */}
+                                    <span className="playfair text-2xl md:text-[1.8rem] font-bold text-white/90 group-hover:text-red-100 transition-colors duration-500">
+                                        {log.target}
+                                    </span>
+                                </div>
+                                <div className={`mono ${log.color} font-bold tracking-[0.2em] text-[0.8rem] md:text-[0.9rem] flex items-center gap-3 z-10 relative`}>
+                                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                                    [ {log.status} ]
+                                </div>
+                                {/* Brutal Strike-through animation on hover */}
+                                <div className="absolute top-[50%] left-0 h-[3px] bg-red-600 shadow-[0_0_15px_rgba(220,38,38,1)] transition-all duration-[600ms] ease-out z-20 w-0 group-hover:w-full mix-blend-screen pointer-events-none"></div>
                             </div>
                         ))}
                     </div>
+                </div>
 
-                    <div className={`h-[1px] bg-red-900/10 w-full my-6 transition-all duration-500 origin-left ${phase >= 8 ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'}`} />
+                {/* RIGHT: THE PEN */}
+                <div className="w-full lg:w-[40%] flex flex-col items-center lg:items-end text-center lg:text-right">
 
-                    {/* Notes */}
-                    <div className="space-y-4">
-                        <div className={`mono text-[var(--amber)] text-[0.75rem] tracking-wider transition-all duration-500 ${phase >= 9 ? 'opacity-100' : 'opacity-0'}`}>
-                            ⚠ NOTE: No swords needed.
+                    <div className="flex flex-col gap-4 lg:gap-6 mb-12 lg:mb-16">
+                        <div className={`playfair italic text-[var(--muted)]/80 text-3xl md:text-4xl transition-all duration-1000 ${phase >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                            "No swords needed."
                         </div>
-                        <div className={`mono text-[var(--amber)] text-[0.75rem] tracking-wider transition-all duration-500 ${phase >= 10 ? 'opacity-100' : 'opacity-0'}`}>
-                            ⚠ NOTE: No war needed.
+                        <div className={`playfair italic text-[var(--muted)]/80 text-3xl md:text-4xl transition-all duration-1000 ${phase >= 6 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                            "No war needed."
                         </div>
+                    </div>
+
+                    {/* Massive final text */}
+                    <div className={`relative transition-all duration-[1500ms] ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${phase >= 7 ? 'opacity-100 scale-100' : 'opacity-0 scale-[0.2]'}`}>
+
+                        {/* Background glow pulse */}
+                        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-red-600/30 blur-[60px] md:blur-[100px] rounded-full transition-opacity duration-1000 pointer-events-none ${phase >= 8 ? 'opacity-100 animate-pulse' : 'opacity-0'}`}></div>
+
+                        <div className="mono text-red-500 tracking-[0.4em] uppercase text-[0.7rem] md:text-[0.8rem] mb-6 font-bold text-center lg:text-right relative z-10">
+                            [ LETHAL IMPLEMENT DETECTED ]
+                        </div>
+
+                        <h2 className="playfair font-black text-[5rem] sm:text-[6rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem] leading-[0.85] text-white uppercase tracking-tighter drop-shadow-[0_0_15px_rgba(0,0,0,0.8)] text-center lg:text-right relative z-10">
+                            Just a<br />
+                            <span className="text-red-600 italic tracking-wider drop-shadow-[0_0_30px_rgba(220,38,38,0.8)]">Pen.</span>
+                        </h2>
                     </div>
                 </div>
 
-                {/* Final Line */}
-                <div
-                    className={`mt-12 transition-all duration-[1500ms] relative z-50 text-center ${phase >= 12 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                >
-                    <div
-                        className="playfair font-black text-[var(--red)] leading-tight tracking-tight"
-                        style={{
-                            fontSize: "clamp(2.2rem, 6vw, 4rem)",
-                            textShadow: "0 0 50px rgba(239, 68, 68, 0.4)"
-                        }}
-                    >
-                        ⚠ NOTE: Just a pen.
-                    </div>
-                </div>
             </div>
+
+            <style jsx>{`
+                @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+            `}</style>
         </div>
     );
 };

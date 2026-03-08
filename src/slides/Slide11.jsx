@@ -6,12 +6,11 @@ const Slide11 = ({ isActive }) => {
     useEffect(() => {
         if (isActive) {
             const timers = [
-                setTimeout(() => setPhase(1), 1000), // Patch notes reveal
-                setTimeout(() => setPhase(2), 1300), // Item 1
-                setTimeout(() => setPhase(3), 1600), // Item 2
-                setTimeout(() => setPhase(4), 1900), // Item 3
-                setTimeout(() => setPhase(5), 2200), // Item 4
-                setTimeout(() => setPhase(6), 3500)  // Closing line
+                setTimeout(() => setPhase(1), 300),
+                setTimeout(() => setPhase(2), 800),
+                setTimeout(() => setPhase(3), 1200),
+                setTimeout(() => setPhase(4), 1800),
+                setTimeout(() => setPhase(5), 2400)
             ];
             return () => timers.forEach(clearTimeout);
         } else {
@@ -19,76 +18,121 @@ const Slide11 = ({ isActive }) => {
         }
     }, [isActive]);
 
-    const patchItems = [
-        { version: "v1.0", period: "Pre-colonial", status: "ACTIVE", icon: "[+]", color: "var(--green)", desc: ["Unlocked by combat merit, not birth", "Absolute authority over settlement", "Outranks even spiritual leaders (Balyan)"] },
-        { version: "v1.1", period: "Spanish Period", status: "SUPPRESSED", icon: "[~]", color: "var(--amber)", desc: ["Limited by colonial presence", "Survived due to terrain advantage (interior Mindanao)"] },
-        { version: "v2.0", period: "American Period", status: "DEPRECATED", icon: "[-]", color: "var(--red)", desc: ["Class actively removed and suppressed", "Last known instance: 1930s"] },
-        { version: "", period: "Current", status: "CLASS NO LONGER AVAILABLE", icon: "[✗]", color: "var(--red)", desc: [], bold: true }
+    const historyTimeline = [
+        { period: "Pre-colonial", status: "Active Status", color: "var(--green)", desc: "Unlocked exclusively by combat merit. Held absolute authority over settlements, outranking even spiritual leaders." },
+        { period: "Spanish Period", status: "Suppressed", color: "var(--amber)", desc: "Authority limited by colonial presence, but survived due to terrain advantage in interior Mindanao." },
+        { period: "American Period", status: "Dismantled", color: "var(--red)", desc: "Class actively hunted and suppressed. Authority completely dismantled by the colonial government." },
+        { period: "Current Era", status: "Extinct", color: "var(--muted)", desc: "No longer exists in modern taxonomy." }
     ];
 
     return (
-        <div className="w-full h-full bg-[#0a0505] flex flex-col items-center justify-center p-8 overflow-y-auto no-scrollbar">
-            <div className="max-w-[700px] w-full flex flex-col items-center text-center">
-                {/* Large Stat */}
-                <div className="mb-2 animate-[fade-in_1.2s_ease-out_forwards] flex flex-col items-center">
-                    <div
-                        className="playfair font-black text-[var(--red)] leading-none mb-2"
-                        style={{
-                            fontSize: "clamp(4.5rem, 12vw, 7.5rem)",
-                            textShadow: "0 0 60px rgba(239, 68, 68, 0.4)"
-                        }}
-                    >
-                        5 – 30
+        <div className="w-full min-h-full bg-[var(--deep)] px-8 md:px-16 lg:px-24 py-20 overflow-y-auto no-scrollbar relative flex flex-col justify-center items-center">
+
+            <div className={`w-full max-w-[1500px] flex flex-col lg:flex-row justify-between gap-16 lg:gap-32 relative z-10 transition-opacity duration-1000 ${phase >= 1 ? 'opacity-100' : 'opacity-0'}`}>
+
+                {/* LEFT: Title & Stats */}
+                <div className={`lg:w-[45%] flex flex-col justify-center transition-all duration-1000 transform ${phase >= 1 ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'}`}>
+
+                    <div className="mb-6 md:mb-8">
+                        <span className="mono text-[0.8rem] md:text-[0.9rem] tracking-[0.3em] font-bold text-[var(--red)] uppercase bg-red-950/30 px-4 py-2 border border-red-900/50 shadow-[0_0_15px_rgba(239,68,68,0.05)]">
+                            SEC_04 // TACTICAL_CLASS
+                        </span>
                     </div>
-                    <div className="mono text-[0.72rem] tracking-[0.25em] text-[var(--muted)]/80 uppercase">
-                        Kills Required to Earn Warrior Status
+
+                    <h2 className="playfair text-6xl md:text-7xl lg:text-[8rem] font-bold leading-tight text-[var(--white)] tracking-wide mb-12">
+                        The <span className="text-[var(--red)] italic">Bagani</span>
+                    </h2>
+
+                    {/* Massive Stat Container */}
+                    <div className={`bg-[#070505] border-y border-r border-y-red-900/30 border-r-red-900/30 border-l-[8px] border-l-[var(--red)] py-10 px-8 md:py-14 md:px-12 mb-10 relative group transition-all duration-700 transform ${phase >= 2 ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+
+                        <div className="mono text-[0.85rem] md:text-sm text-[var(--muted)] tracking-widest uppercase mb-6 font-bold border-b border-white/5 pb-3">
+                            Class Prerequisite
+                        </div>
+
+                        <div className="flex items-baseline gap-6 mb-4">
+                            <span className="playfair text-[6rem] md:text-[8rem] leading-none font-bold text-[var(--white)]">5</span>
+                            <span className="playfair text-4xl md:text-6xl text-[var(--red)] font-light">—</span>
+                            <span className="playfair text-[6rem] md:text-[8rem] leading-none font-bold text-[var(--white)]">30</span>
+                        </div>
+
+                        <div className="mono text-xl md:text-2xl font-bold text-[var(--red)] tracking-wider mt-4">
+                            Kills Required
+                        </div>
                     </div>
+
+                    <div className={`border-t border-white/10 pt-8 transition-all duration-1000 transform delay-300 ${phase >= 2 ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+                        <p className="playfair text-2xl md:text-3xl text-[var(--white)] leading-[1.6]">
+                            They were the ultimate protectors. <br className="hidden xl:block" />
+                            <span className="text-[var(--muted)] italic text-xl md:text-2xl mt-4 block">Earned strictly through combat merit, never by birth.</span>
+                        </p>
+                    </div>
+
                 </div>
 
-                {/* Patch Notes Panel */}
-                <div
-                    className={`mt-12 w-full max-w-[600px] bg-[var(--terminal)] border border-red-900/40 p-6 md:p-8 rounded-sm text-left transition-all duration-1000 ${phase >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                >
-                    <div className="mono text-[var(--amber)] text-[0.7rem] tracking-[0.2em] mb-6 border-b border-red-900/20 pb-3 uppercase font-bold">
-                        Patch Notes — Bagani Class
-                    </div>
+                {/* RIGHT: Clear Timeline */}
+                <div className={`lg:w-[50%] flex flex-col justify-center transition-all duration-1000 transform ${phase >= 3 ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
 
-                    <div className="space-y-8">
-                        {patchItems.map((item, i) => (
-                            <div
-                                key={i}
-                                className={`transition-opacity duration-500 ${phase >= (i + 2) ? 'opacity-100' : 'opacity-0'}`}
-                            >
-                                <div className="flex items-start gap-4 mb-2">
-                                    <span className={`mono font-bold text-lg`} style={{ color: item.color }}>{item.icon}</span>
-                                    <div className="flex flex-col">
-                                        <div className="flex items-center gap-3">
-                                            <span className="mono text-[var(--white)] text-[0.8rem] font-bold">{item.version}</span>
-                                            <span className="mono text-[var(--muted)] text-[0.7rem]">{item.period}</span>
-                                            <span className={`mono text-[0.7rem] font-bold ${item.bold ? 'text-lg' : ''}`} style={{ color: item.color }}>{item.status}</span>
+                    <div className="bg-[#050605] border border-[var(--border)] p-10 md:p-14 lg:p-16 shadow-2xl h-full flex flex-col justify-center">
+
+                        <div className="mono text-[0.9rem] md:text-base text-[var(--white)] tracking-widest uppercase mb-10 pb-6 border-b border-white/10 flex items-center gap-4">
+                            <div className="w-3 h-3 bg-[var(--amber)]"></div>
+                            Historical Status
+                        </div>
+
+                        <div className="relative mt-2">
+                            {/* Centered vertical line behind circles */}
+                            <div className="absolute left-[11px] md:left-[13px] top-4 bottom-8 w-[2px] bg-white/10 z-0"></div>
+
+                            <div className="flex flex-col space-y-14 lg:space-y-16">
+                                {historyTimeline.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className={`relative z-10 flex flex-row items-start gap-8 md:gap-12 transition-all duration-700 transform ${phase >= (3 + index * 0.5) ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+                                    >
+                                        {/* In-flow Timeline Circle */}
+                                        <div className="flex-shrink-0 pt-1">
+                                            <div
+                                                className="w-6 h-6 md:w-7 md:h-7 rounded-full border-[4px] relative z-20 bg-[#050605]"
+                                                style={{ borderColor: item.color }}
+                                            ></div>
                                         </div>
-                                        <ul className="mt-2 space-y-1">
-                                            {item.desc.map((d, di) => (
-                                                <li key={di} className="mono text-[var(--muted)] text-[0.8rem] leading-relaxed pl-4 relative before:content-['-'] before:absolute before:left-0 before:opacity-30">
-                                                    {d}
-                                                </li>
-                                            ))}
-                                        </ul>
+
+                                        {/* Text Content Block */}
+                                        <div className="flex flex-col w-full pb-2">
+                                            <div className="flex flex-col xl:flex-row xl:items-center gap-4 xl:gap-6 mb-3">
+                                                <h4 className="mono text-2xl md:text-3xl text-[var(--white)] font-bold tracking-wide">
+                                                    {item.period}
+                                                </h4>
+                                                <span
+                                                    className="mono text-[0.75rem] md:text-sm tracking-widest uppercase px-3 py-1 inline-block w-fit"
+                                                    style={{ color: item.color, backgroundColor: `${item.color}15`, border: `1px solid ${item.color}40` }}
+                                                >
+                                                    {item.status}
+                                                </span>
+                                            </div>
+
+                                            <p className="mono text-lg md:text-xl text-[var(--muted)] leading-[1.8] max-w-2xl">
+                                                {item.desc}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
                     </div>
+
                 </div>
 
-                {/* Closing Line */}
-                <div
-                    className={`mt-8 transition-all duration-1000 italic text-[var(--red)] text-[0.85rem] ${phase >= 6 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                >
-                    "The last known Bagani disappeared in the 1930s. The class was patched out."
-                </div>
             </div>
+
+            {/* Footer Quote */}
+            <div className={`w-full max-w-[1500px] mt-20 md:mt-32 transition-all duration-1000 transform ${phase >= 4 ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+                <p className="playfair italic text-[var(--red)] text-2xl md:text-4xl font-bold tracking-wide border-t border-red-900/30 pt-10 text-center lg:text-left">
+                    "The last known Bagani disappeared in the 1930s."
+                </p>
+            </div>
+
         </div>
     );
 };

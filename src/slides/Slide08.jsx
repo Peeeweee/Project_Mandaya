@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react';
 
+// Comic Panel Component
+const ComicPanel = ({ children, colSpan = "col-span-12", borderColor = "border-white", shadowColor = "#ffffff", bgColor = "bg-[#050505]", delay = 0, isVisible }) => (
+    <div
+        className={`${colSpan} border-[3px] md:border-4 flex flex-col justify-center ${borderColor} ${bgColor} px-5 py-6 md:px-8 md:py-10 relative overflow-hidden transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        style={{
+            boxShadow: `8px 8px 0px ${shadowColor}`,
+            transitionDelay: `${delay}ms`
+        }}
+    >
+        {children}
+    </div>
+);
+
 const Slide08 = ({ isActive }) => {
     const [phase, setPhase] = useState(0);
 
     useEffect(() => {
         if (isActive) {
             const timers = [
-                setTimeout(() => setPhase(1), 300),
-                setTimeout(() => setPhase(2), 800),
-                setTimeout(() => setPhase(3), 1400),
-                setTimeout(() => setPhase(4), 2000),
-                setTimeout(() => setPhase(5), 2600),
+                setTimeout(() => setPhase(1), 200),
+                setTimeout(() => setPhase(2), 600),
+                setTimeout(() => setPhase(3), 1000),
+                setTimeout(() => setPhase(4), 1400),
+                setTimeout(() => setPhase(5), 1800),
             ];
             return () => timers.forEach(clearTimeout);
         } else {
@@ -19,153 +32,161 @@ const Slide08 = ({ isActive }) => {
     }, [isActive]);
 
     return (
-        <div className="w-full min-h-full bg-[#030403] px-4 md:px-12 py-12 md:py-24 overflow-y-auto relative flex flex-col justify-center">
+        <div className="w-full min-h-full bg-[#050505] p-6 md:p-12 overflow-y-auto no-scrollbar relative flex items-center justify-center">
 
-            {/* Background grid */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.02]"
-                style={{ backgroundImage: 'linear-gradient(var(--green) 1px, transparent 1px), linear-gradient(90deg, var(--green) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+            {/* Retro Graphic Halftone Background */}
+            <div className="absolute inset-0 opacity-[0.1] mix-blend-screen pointer-events-none" style={{
+                backgroundImage: 'radial-gradient(circle, #28c840 2px, transparent 2.5px)',
+                backgroundSize: '20px 20px'
+            }}></div>
 
-            <div className={`w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 relative z-10 transition-opacity duration-1000 ${phase >= 1 ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`w-full max-w-[1200px] grid grid-cols-12 gap-6 md:gap-8 lg:gap-10 relative z-10 my-auto transition-opacity duration-1000 ${phase >= 1 ? 'opacity-100' : 'opacity-0'}`}>
 
-                {/* Left Column: Etymology */}
-                <div className="lg:col-span-7 flex flex-col justify-center relative">
-                    {/* Header */}
-                    <div className={`mb-12 transition-all duration-1000 transform ${phase >= 1 ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="px-3 py-1 bg-green-950/30 border border-green-900/50 mono text-xs tracking-[0.3em] font-bold text-[var(--green)]">
-                                SEC_01 // IDENTITY
-                            </div>
-                            <div className="h-[1px] flex-1 bg-gradient-to-r from-green-900/50 to-transparent"></div>
+                {/* Left Column: Etymology Breakdown */}
+                <div className="col-span-12 lg:col-span-7 flex flex-col gap-6 md:gap-8 justify-center">
+
+                    {/* Header Panel */}
+                    <ComicPanel
+                        colSpan="col-span-1"
+                        borderColor="border-[#28c840]"
+                        shadowColor="#28c840"
+                        bgColor="bg-[#020502]"
+                        isVisible={phase >= 1} delay={0}
+                    >
+                        <div className="absolute top-0 right-0 bg-[#28c840] text-black mono font-bold text-[0.65rem] md:text-[0.75rem] px-4 py-1.5 border-b-[3px] border-l-[3px] border-[#28c840] tracking-widest z-10">
+                            SEC_01 // IDENTITY
                         </div>
-                        <h2 className="playfair text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-[var(--white)] tracking-wide">
-                            What Does Their <br /><span className="text-amber-500/90 italic">Name Mean?</span>
+                        {/* Halftone green inside */}
+                        <div className="absolute inset-0 opacity-[0.05]" style={{
+                            backgroundImage: 'radial-gradient(circle, #28c840 2px, transparent 2.5px)',
+                            backgroundSize: '8px 8px'
+                        }}></div>
+
+                        <h2 className="playfair text-5xl md:text-6xl lg:text-[4.5rem] font-black uppercase leading-[0.9] text-white pt-2 relative z-10 drop-shadow-[4px_4px_0_rgba(40,200,64,0.3)]">
+                            What Does Their <br /><span className="text-[#28c840] italic font-bold">Name Mean?</span>
                         </h2>
-                    </div>
+                    </ComicPanel>
 
-                    {/* Word Equation */}
-                    <div className="relative pl-6 md:pl-10 border-l-2 border-green-900/30 py-4 flex flex-col gap-6">
+                    {/* Word Equation Grid */}
+                    <div className="grid grid-cols-12 gap-4 md:gap-6">
+
                         {/* MAN */}
-                        <div className={`flex items-center gap-6 transition-all duration-700 transform ${phase >= 2 ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'}`}>
-                            <div className="relative w-24 h-24 md:w-32 md:h-32 bg-[#060a06] border border-green-900/50 flex items-center justify-center shrink-0 group hover:border-[var(--green)] hover:bg-green-950/20 transition-colors shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                                <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[var(--green)] opacity-50"></div>
-                                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[var(--green)] opacity-50"></div>
-                                <span className="mono text-2xl md:text-4xl text-[var(--white)] font-bold group-hover:text-[var(--green)] transition-colors">MAN</span>
+                        <ComicPanel
+                            colSpan="col-span-12 sm:col-span-6"
+                            borderColor="border-yellow-400"
+                            shadowColor="#facc15"
+                            bgColor="bg-[#120a00]"
+                            isVisible={phase >= 2} delay={0}
+                        >
+                            <div className="absolute top-0 right-0 bg-yellow-400 text-black mono font-bold text-[0.6rem] px-2 py-1 border-b-[2px] border-l-[2px] border-yellow-400 tracking-widest z-10 w-fit">
+                                PREFIX_VAL
                             </div>
-                            <div className="flex flex-col">
-                                <span className="mono text-[var(--muted)] text-xs md:text-sm tracking-[0.2em] mb-2">PREFIX_VAL</span>
-                                <span className="playfair text-xl md:text-3xl text-[var(--white)] opacity-90">inhabitant of</span>
+                            <div className="flex flex-col md:flex-row items-center gap-4 relative z-10 h-full w-full mt-4">
+                                <div className="text-4xl md:text-5xl lg:text-5xl font-black mono text-white">MAN</div>
+                                <div className="text-yellow-400 text-xl md:text-2xl lg:text-3xl playfair italic font-bold text-center md:text-left leading-tight w-full uppercase">
+                                    inhabitant of
+                                </div>
                             </div>
-                        </div>
-
-                        {/* + */}
-                        <div className={`w-24 md:w-32 flex justify-center transition-all duration-700 ${phase >= 3 ? 'opacity-100' : 'opacity-0'}`}>
-                            <div className="w-[1px] h-8 bg-green-900/50 relative">
-                                <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mono text-[var(--muted)] text-xl">+</span>
-                            </div>
-                        </div>
+                        </ComicPanel>
 
                         {/* DAYA */}
-                        <div className={`flex items-center gap-6 transition-all duration-700 transform ${phase >= 3 ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'}`}>
-                            <div className="relative w-24 h-24 md:w-32 md:h-32 bg-[#060a06] border border-green-900/50 flex items-center justify-center shrink-0 group hover:border-[var(--green)] hover:bg-green-950/20 transition-colors shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                                <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[var(--green)] opacity-50"></div>
-                                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[var(--green)] opacity-50"></div>
-                                <span className="mono text-2xl md:text-4xl text-[var(--white)] font-bold group-hover:text-[var(--green)] transition-colors">DAYA</span>
+                        <ComicPanel
+                            colSpan="col-span-12 sm:col-span-6"
+                            borderColor="border-[#8b5cf6]"
+                            shadowColor="#8b5cf6"
+                            bgColor="bg-[#050010]"
+                            isVisible={phase >= 3} delay={0}
+                        >
+                            <div className="absolute top-0 right-0 bg-[#8b5cf6] text-black mono font-bold text-[0.6rem] px-2 py-1 border-b-[2px] border-l-[2px] border-[#8b5cf6] tracking-widest z-10 w-fit">
+                                ROOT_VAL
                             </div>
-                            <div className="flex flex-col">
-                                <span className="mono text-[var(--muted)] text-xs md:text-sm tracking-[0.2em] mb-2">ROOT_VAL</span>
-                                <span className="playfair text-xl md:text-3xl text-[var(--white)] opacity-90">upstream</span>
+                            <div className="flex flex-col md:flex-row items-center gap-4 relative z-10 h-full w-full mt-4">
+                                <div className="text-4xl md:text-5xl lg:text-5xl font-black mono text-white">DAYA</div>
+                                <div className="text-[#8b5cf6] text-xl md:text-2xl lg:text-3xl playfair italic font-bold text-center md:text-left leading-tight w-full uppercase">
+                                    upstream
+                                </div>
                             </div>
-                        </div>
+                        </ComicPanel>
 
-                        {/* = */}
-                        <div className={`w-24 md:w-32 flex justify-center transition-all duration-700 ${phase >= 4 ? 'opacity-100' : 'opacity-0'}`}>
-                            <div className="w-[2px] h-12 bg-gradient-to-b from-[var(--amber)] to-[var(--green)] relative"></div>
-                        </div>
+                        {/* SYNTHESIS / FINAL */}
+                        <ComicPanel
+                            colSpan="col-span-12"
+                            borderColor="border-white"
+                            shadowColor="#ffffff"
+                            bgColor="bg-[#111]"
+                            isVisible={phase >= 4} delay={0}
+                        >
+                            <div className="absolute top-0 left-0 bg-white text-black mono font-bold text-[0.65rem] px-4 py-1.5 border-b-[3px] border-r-[3px] border-white tracking-widest z-10">
+                                SYNTHESIS
+                            </div>
+                            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 border-l-[4px] border-[#28c840] pt-6 md:pt-0 pl-6 w-full relative z-10 mt-6 md:mt-4">
+                                <div className="text-4xl md:text-5xl lg:text-[4rem] font-black mono text-[#28c840] drop-shadow-[5px_5px_0_rgba(40,200,64,0.3)] tracking-widest block w-full text-center md:text-left md:w-auto">MANDAYA</div>
+                                <div className="text-white text-3xl md:text-4xl lg:text-[2.75rem] playfair font-bold text-center md:text-left leading-[1.1] w-full mt-2 md:mt-0">
+                                    People of the <br className="hidden md:block" />Upstream
+                                </div>
+                            </div>
+                        </ComicPanel>
 
-                        {/* MANDAYA */}
-                        <div className={`flex items-center gap-6 transition-all duration-700 transform ${phase >= 4 ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'}`}>
-                            <div className="relative w-36 h-28 md:w-48 md:h-36 bg-green-950/20 border-2 border-[var(--green)] flex items-center justify-center shrink-0 shadow-[0_0_25px_rgba(74,222,128,0.15)] overflow-hidden">
-                                <div className="absolute inset-0 bg-[var(--green)] opacity-[0.03] animate-pulse"></div>
-                                <span className="mono text-2xl md:text-4xl text-[var(--green)] font-black tracking-widest relative z-10" style={{ textShadow: '0 0 10px rgba(74,222,128,0.5)' }}>MANDAYA</span>
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="mono text-[var(--green)] text-xs md:text-sm tracking-[0.2em] mb-2 font-bold bg-green-900/30 px-2 py-1 self-start inline-block border border-green-500/30">SYNTHESIS</span>
-                                <span className="playfair text-2xl md:text-4xl text-[var(--white)] font-bold leading-tight">People of the <br />Upstream</span>
-                            </div>
-                        </div>
                     </div>
 
                     {/* Quote */}
-                    <div className={`mt-12 pl-6 md:pl-10 transition-all duration-1000 delay-500 transform ${phase >= 5 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-                        <div className="relative inline-block border-l-4 border-[var(--amber)] pl-6 py-2">
-                            <span className="absolute -left-3 -top-2 text-[var(--amber)] font-mono text-3xl opacity-30">"</span>
-                            <p className="playfair italic text-[var(--white)] text-xl md:text-2xl leading-relaxed text-amber-500/80">
-                                Always going against the current. <br />
-                                <span className="text-[var(--muted)] text-lg md:text-xl block mt-2">Resilience built into the name.</span>
+                    <div className={`mt-2 transition-all duration-1000 transform ${phase >= 5 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+                        <div className="relative inline-block border-l-[4px] border-amber-500 pl-6 py-2 bg-amber-500/5 pr-8">
+                            <span className="absolute -left-4 -top-3 text-amber-500 font-mono text-4xl opacity-50 font-black">"</span>
+                            <p className="playfair italic text-white text-xl md:text-2xl leading-[1.6]">
+                                <span className="text-amber-500 font-bold bg-amber-500/10 px-1 block mb-2 w-fit">Always going against the current.</span>
+                                Resilience built into the name.
                             </p>
                         </div>
                     </div>
                 </div>
 
                 {/* Right Column: Quick Facts Terminal */}
-                <div className={`lg:col-span-5 flex flex-col justify-center transition-all duration-1000 transform ${phase >= 3 ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-                    <div className="w-full bg-[#050805] border border-green-900/40 p-6 md:p-8 relative overflow-hidden group shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                <ComicPanel
+                    colSpan="col-span-12 lg:col-span-5 flex-col flex justify-center h-full min-h-[500px]"
+                    borderColor="border-red-600"
+                    shadowColor="#dc2626"
+                    bgColor="bg-[#0f0000]"
+                    isVisible={phase >= 3} delay={0}
+                >
+                    <div className="absolute top-0 right-0 bg-red-600 text-black mono font-bold text-[0.65rem] md:text-[0.75rem] px-4 py-1.5 border-b-[3px] border-l-[3px] lg:border-b-4 lg:border-l-4 border-red-600 tracking-widest z-10">
+                        TARGET_PROFILE //
+                    </div>
+                    {/* Halftone red */}
+                    <div className="absolute inset-0 opacity-[0.2]" style={{
+                        backgroundImage: 'radial-gradient(circle, #dc2626 2px, transparent 2.5px)',
+                        backgroundSize: '16px 16px'
+                    }}></div>
 
-                        {/* Scanner Line */}
-                        <div className="absolute top-0 left-0 w-full h-[2px] bg-[var(--green)] opacity-[0.15] group-hover:animate-[scan_2s_linear_infinite] shadow-[0_0_10px_var(--green)]"></div>
-
-                        {/* Terminal Header */}
-                        <div className="flex items-center justify-between border-b border-green-900/40 pb-4 mb-8">
-                            <div className="mono text-[var(--green)] text-sm md:text-base font-bold tracking-[0.2em] flex items-center gap-3">
-                                👁‍🗨 TARGET_PROFILE //
-                            </div>
-                            <div className="flex gap-1">
-                                <div className="w-2 h-2 bg-green-900/60"></div>
-                                <div className="w-2 h-2 bg-green-900/60"></div>
-                                <div className="w-2 h-2 bg-[var(--green)] animate-pulse"></div>
-                            </div>
-                        </div>
-
+                    <div className="w-full relative z-10">
                         {/* Facts List */}
-                        <div className="flex flex-col gap-8">
+                        <div className="flex flex-col gap-6 md:gap-8 pt-8">
                             {[
                                 { key: "POP_CENSUS_1988", label: "Population Node", value: "~33,000", hl: true },
                                 { key: "GEO_LOC_ANCHOR", label: "Primary Territory", value: "Davao Oriental", hl: false },
                                 { key: "ETHNO_CLASS", label: "Classification", value: "Lumad (non-Islamized)", hl: false },
                                 { key: "LANG_FAMILY", label: "Lingual Root", value: "Austronesian", hl: false }
                             ].map((fact, idx) => (
-                                <div key={idx} className={`flex flex-col transition-all duration-500 transform ${phase >= 4 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`} style={{ transitionDelay: `${800 + (idx * 150)}ms` }}>
-                                    <div className="flex items-center gap-3 mb-1">
-                                        <div className="w-1.5 h-1.5 bg-[var(--muted)]/50 rotate-45"></div>
-                                        <div className="mono text-[0.65rem] md:text-[0.75rem] text-[var(--muted)] uppercase tracking-widest">{fact.key}</div>
+                                <div key={idx} className={`flex flex-col transition-all duration-700 transform px-6 py-4 bg-black/60 border border-red-900/40 shadow-[4px_4px_0_rgba(220,38,38,0.2)] ${phase >= 4 ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`} style={{ transitionDelay: `${800 + (idx * 200)}ms` }}>
+
+                                    <div className="flex items-center gap-3 mb-2 border-b border-red-900/50 pb-2">
+                                        <div className="w-2 h-2 bg-red-600 rotate-45"></div>
+                                        <div className="mono text-[0.65rem] md:text-[0.7rem] text-white/50 uppercase tracking-widest">{fact.key}</div>
                                     </div>
-                                    <div className="flex flex-col ml-4 border-l border-green-900/30 pl-4 py-1">
-                                        <div className="mono text-[0.8rem] md:text-[0.9rem] text-white/50 mb-1">{fact.label}</div>
-                                        <div className={`mono text-xl md:text-2xl font-bold tracking-tight ${fact.hl ? 'text-[var(--amber)] shadow-[0_0_10px_rgba(245,158,11,0.2)]' : 'text-[var(--green)]'}`}>
+
+                                    <div className="flex flex-col pl-5 border-l-2 border-red-600/30">
+                                        <div className="mono text-[0.8rem] md:text-[0.85rem] text-red-500/80 mb-1 font-bold uppercase">{fact.label}</div>
+                                        <div className={`mono text-2xl md:text-3xl font-black tracking-tight ${fact.hl ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]' : 'text-red-500'}`}>
                                             {fact.value}
                                         </div>
                                     </div>
                                 </div>
                             ))}
                         </div>
-
-                        {/* Decorative watermark */}
-                        <div className="absolute -bottom-10 -right-6 playfair text-9xl text-green-900/10 font-black pointer-events-none select-none tracking-tighter">
-                            01
-                        </div>
                     </div>
-                </div>
+                </ComicPanel>
 
             </div>
-
-            <style jsx>{`
-                @keyframes scan {
-                    0% { top: 0; }
-                    50% { top: 100%; opacity: 0.5; }
-                    51% { opacity: 0; }
-                    100% { top: 0; opacity: 0; }
-                }
-            `}</style>
         </div>
     );
 };

@@ -103,14 +103,14 @@ const Slide05 = ({ isActive }) => {
                     {commits.map((commit, i) => (
                         <div
                             key={i}
-                            className={`flex w-full mb-4 transition-all duration-[800ms] ${phase >= (i + 1) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'}`}
+                            className={`flex w-full mb-8 lg:mb-12 transition-all duration-[800ms] ${phase >= (i + 1) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'}`}
                         >
                             {/* Left Column: Timeline Line & Dots */}
                             <div className="w-[40px] md:w-[60px] shrink-0 relative flex flex-col items-center">
                                 {/* The continuous line */}
                                 {i !== commits.length - 1 && (
                                     <div
-                                        className="absolute top-[25px] bottom-[-25px] w-[2px] md:w-[3px] bg-gradient-to-b z-0"
+                                        className="absolute top-[25px] -bottom-[36px] lg:-bottom-[52px] w-[2px] md:w-[3px] bg-gradient-to-b z-0"
                                         style={{
                                             from: commit.color,
                                             to: commits[i + 1]?.color || commit.color,
@@ -132,14 +132,14 @@ const Slide05 = ({ isActive }) => {
                             {/* Right Column: Content Box */}
                             <div className="flex-1 min-w-0">
                                 <div
-                                    className={`w-full p-4 md:p-5 flex flex-col overflow-hidden relative border-l-4 ${commit.bg} ${commit.border}`}
+                                    className={`w-full p-5 lg:p-7 flex flex-col overflow-hidden relative border-l-4 ${commit.bg} ${commit.border}`}
                                     style={{
                                         borderLeftColor: commit.color,
                                         boxShadow: commit.special ? `0 0 30px rgba(255,0,0,0.15)` : 'none'
                                     }}
                                 >
                                     {/* Header Data */}
-                                    <div className="mono text-[0.7rem] md:text-[0.85rem] mb-3 flex flex-wrap items-center gap-3">
+                                    <div className="mono text-[0.7rem] md:text-[0.85rem] mb-4 flex flex-wrap items-center gap-3">
                                         <span
                                             className="font-bold tracking-widest px-2 py-1 bg-[#000] border-b"
                                             style={{ color: commit.color, borderColor: commit.color }}
@@ -157,7 +157,7 @@ const Slide05 = ({ isActive }) => {
                                     </div>
 
                                     {/* Body Diff */}
-                                    <div className="mono text-[0.8rem] md:text-[0.95rem] leading-relaxed mb-4 space-y-1">
+                                    <div className="mono text-[0.85rem] md:text-[0.95rem] leading-relaxed mb-5 lg:mb-6 space-y-1.5">
                                         {commit.body.split('\n').map((line, idx) => (
                                             <div key={idx} className={`${line.startsWith('+') ? 'text-green-400/90' : line.startsWith('-') ? 'text-amber-500/90' : 'text-red-500 font-bold bg-red-900/20 inline-block px-2'}`}>
                                                 {line}

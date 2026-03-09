@@ -17,120 +17,126 @@ const Slide09 = ({ isActive }) => {
     }, [isActive]);
 
     const branches = [
-        { key: "NODE_01", name: "mansaka", note: "mountain clearings" },
-        { key: "NODE_02", name: "manwaga", note: "forested mountains" },
-        { key: "NODE_03", name: "pagsupan", note: "Tagum & Hijo river banks" },
-        { key: "NODE_04", name: "managusan", note: "near water" },
-        { key: "NODE_05", name: "divavaogan", note: "Compostela Valley" },
+        { key: "NODE_01", name: "mansaka", note: "mountain clearings", color: "var(--amber)" },
+        { key: "NODE_02", name: "manwaga", note: "forested mountains", color: "var(--green)" },
+        { key: "NODE_03", name: "pagsupan", note: "Tagum & Hijo river banks", color: "var(--red)" },
+        { key: "NODE_04", name: "managusan", note: "near water", color: "var(--amber)" },
+        { key: "NODE_05", name: "divavaogan", note: "Compostela Valley", color: "var(--green)" },
     ];
 
     return (
-        <div className="w-full min-h-full bg-[#030403] px-4 md:px-12 py-12 md:py-24 overflow-y-auto relative flex flex-col justify-center">
+        <div className="w-full min-h-full bg-[#080a08] px-4 md:px-12 py-12 md:py-24 overflow-y-auto relative flex flex-col justify-center items-center font-sans">
 
-            {/* Background Radar / Topo Grid */}
-            <div className={`absolute inset-0 border-[1px] border-green-900/10 m-4 md:m-8 pointer-events-none transition-opacity duration-1000 ${phase >= 1 ? 'opacity-100' : 'opacity-0'}`}>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(74,222,128,0.02)_0%,transparent_60%)]" />
-                <div className="absolute top-1/2 left-0 w-full h-[1px] bg-green-900/20" />
-                <div className="absolute top-0 left-1/2 w-[1px] h-full bg-green-900/20" />
+            {/* Artsy Comic Halftone Background */}
+            <div
+                className="absolute inset-0 pointer-events-none opacity-[0.1]"
+                style={{
+                    backgroundImage: 'radial-gradient(circle, var(--green) 2px, transparent 2.5px)',
+                    backgroundSize: '16px 16px',
+                }}
+            />
+            {/* Center darkening overlay */}
+            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,#080a08_90%)]" />
 
-                {/* Decorative map corners */}
-                <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-green-900/50" />
-                <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-green-900/50" />
-                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-green-900/50" />
-                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-green-900/50" />
-            </div>
+            <div className="w-full max-w-[1000px] mx-auto flex flex-col items-center gap-12 lg:gap-16 relative z-10">
 
-            <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 relative z-10">
+                {/* Top Section: Description */}
+                <div className="w-full flex flex-col items-center text-center justify-center relative">
+                    <div className={`mb-4 md:mb-8 flex flex-col items-center transition-all duration-1000 transform ${phase >= 1 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'}`}>
 
-                {/* Left Column: Description */}
-                <div className="lg:col-span-5 flex flex-col justify-center relative">
-                    {/* Header */}
-                    <div className={`mb-10 transition-all duration-1000 transform ${phase >= 1 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'}`}>
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="px-3 py-1 bg-green-950/30 border border-green-900/50 mono text-xs tracking-[0.3em] font-bold text-[var(--green)]">
-                                SEC_02 // TERRITORY
-                            </div>
-                            <div className="h-[1px] flex-1 bg-gradient-to-r from-green-900/50 to-transparent" />
+                        {/* Status Label */}
+                        <div className="inline-block bg-[var(--amber)] text-black border-[3px] border-white px-4 py-1.5 font-black uppercase tracking-widest shadow-[4px_4px_0px_#000] rotate-2 mb-8 transform hover:-rotate-1 transition-transform">
+                            SEC_02 // TERRITORY
                         </div>
-                        <h2 className="playfair text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-[var(--white)] tracking-wide mb-8">
-                            Where They <br /><span className="text-[var(--green)] italic">Live</span>
+
+                        {/* Huge Comic Title */}
+                        <h2 className="playfair text-6xl md:text-7xl lg:text-[6.5rem] font-black leading-[0.9] text-white tracking-tighter mb-10 transform -rotate-2" style={{ textShadow: "6px 6px 0px var(--green), -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff" }}>
+                            WHERE THEY <br />
+                            <span className="text-black inline-block mt-4 bg-white px-6 italic transform rotate-1 relative z-10">LIVE</span>
                         </h2>
 
-                        {/* Text Block */}
-                        <div className={`p-6 md:p-8 border-l-4 border-[var(--green)] bg-black/80 shadow-[0_0_30px_rgba(74,222,128,0.05)] relative overflow-hidden transition-all duration-1000 transform ${phase >= 2 ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'}`}>
-                            {/* Subtle scanline behind text */}
-                            <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(74,222,128,0.02)_2px,rgba(74,222,128,0.02)_4px)] pointer-events-none" />
+                        {/* Text Block - Comic Panel */}
+                        <div className={`p-6 md:p-8 max-w-3xl border-[4px] border-white bg-black shadow-[10px_10px_0px_var(--red)] relative overflow-hidden transition-all duration-[800ms] ease-out transform rotate-1 hover:-rotate-1 ${phase >= 2 ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-8 opacity-0 scale-95'}`}>
 
-                            <div className="mono text-[0.7rem] text-[var(--green)] tracking-[0.2em] mb-4 uppercase font-bold flex justify-between items-center relative z-10">
-                                <span>[ GEO_DATA_EXTRACT ]</span>
-                                <span className="opacity-50">10.4°N, 126°E</span>
+                            {/* Action Lines Background */}
+                            <div className="absolute inset-0 pointer-events-none opacity-10"
+                                style={{ background: 'repeating-linear-gradient(45deg, transparent, transparent 10px, #fff 10px, #fff 20px)' }}
+                            />
+
+                            <div className="flex justify-between items-start mb-6 relative z-10">
+                                <div className="mono text-[0.8rem] font-black tracking-widest bg-white text-black px-3 py-1.5 transform -skew-x-6 shadow-[2px_2px_0px_var(--green)]">
+                                    [ GEO_DATA_EXTRACT ]
+                                </div>
+                                <div className="mono font-black text-[var(--muted)] opacity-60 text-xs transform rotate-3 border-2 border-[var(--muted)] px-2 py-1 bg-black shadow-[2px_2px_0px_var(--muted)]">
+                                    10.4°N, 126°E
+                                </div>
                             </div>
 
-                            <p className="playfair text-xl md:text-2xl leading-[1.6] text-[var(--white)] relative z-10">
-                                Mountain ranges of <span className="text-[var(--green)] font-bold">Davao Oriental</span>, Davao del Norte, and Surigao del Sur.
+                            <p className="playfair italic text-2xl md:text-3xl lg:text-4xl leading-tight text-white relative z-10 font-bold mb-4">
+                                Mountain ranges of <span className="text-[var(--green)] not-italic inline-block mx-2 mt-1 font-black uppercase tracking-tighter" style={{ textShadow: "3px 3px 0px #000" }}>Davao Oriental</span>, <br className="hidden md:block" /> Davao del Norte, and Surigao del Sur.
                             </p>
-                            <div className="w-full h-[1px] bg-green-900/30 my-5 relative z-10" />
-                            <p className="mono tracking-wide text-[0.85rem] md:text-[0.95rem] leading-[1.8] text-[var(--muted)] relative z-10">
-                                Also recorded in Mt. Kampalili — the highlands of eastern Mindanao.
+
+                            <div className="w-1/3 h-[4px] bg-white my-6 mx-auto relative z-10 transform -rotate-1" />
+
+                            <p className="mono font-bold tracking-wide text-[0.9rem] md:text-[1rem] leading-relaxed text-gray-300 relative z-10 px-4 md:px-8">
+                                Also recorded in Mt. Kampalili &mdash; the highlands of eastern Mindanao.
                             </p>
                         </div>
                     </div>
                 </div>
 
-                {/* Right Column: Node Tree */}
-                <div className="lg:col-span-7 relative flex items-center">
-                    <div className="w-full flex flex-col relative md:pl-8">
+                {/* Bottom Section: Node Tree as Comic Panels (Centered Spine Design) */}
+                <div className="w-full relative flex flex-col items-center">
+                    <div className="w-full max-w-4xl flex flex-col relative py-8 items-center">
 
-                        {/* Root Node Row */}
-                        <div className={`flex items-center gap-4 md:gap-6 z-20 relative transition-all duration-700 transform ${phase >= 2 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-                            {/* Pulse Dot */}
-                            <div className="w-4 h-4 bg-[var(--green)] shadow-[0_0_15px_var(--green)] ring-4 ring-green-900/50 relative z-20 shrink-0" />
-                            {/* Value Box */}
-                            <div className="flex items-center justify-between border border-[var(--green)] bg-[#040604] px-6 py-4 relative shadow-[0_0_30px_rgba(74,222,128,0.15)] flex-1 md:flex-none md:min-w-[400px]">
-                                <span className="mono text-2xl md:text-4xl font-black text-[var(--white)] tracking-wide shrink-0">/mandaya</span>
-                                <span className="mono text-[0.6rem] text-[var(--green)] uppercase tracking-[0.2em] px-2 py-1 bg-green-900/40 border border-green-500/30 shrink-0 hidden md:block">
+                        {/* Thick central vertical connecting line (Spine) */}
+                        <div className={`absolute top-[60px] bottom-[40px] left-1/2 -ml-[3px] w-[6px] bg-white border-x-2 border-black transition-all duration-1000 origin-top z-10 ${phase >= 3 ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`} />
+
+                        {/* Root Node Box */}
+                        <div className={`flex flex-col items-center gap-4 z-20 relative transition-all duration-[600ms] transform ${phase >= 2 ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-12 opacity-0 scale-90'}`}>
+
+                            <div className="flex flex-col md:flex-row items-center justify-center border-[4px] border-white bg-[var(--green)] text-black px-10 py-5 relative shadow-[8px_8px_0px_#000] min-w-[320px] md:min-w-[460px] transform -rotate-1 hover:scale-105 transition-transform cursor-pointer">
+                                <span className="mono text-4xl md:text-[3rem] font-black tracking-tighter flex items-center gap-2">
+                                    <span className="text-white opacity-90 drop-shadow-md">/</span> mandaya
+                                </span>
+                                <span className="absolute -top-4 -right-2 md:-right-6 mono text-[0.75rem] uppercase font-black tracking-widest px-3 py-1.5 bg-black text-white transform rotate-6 shadow-[3px_3px_0px_#fff]">
                                     Volume Root
                                 </span>
                             </div>
+
+                            {/* Origin dot connecting to the spine */}
+                            <div className="w-6 h-6 bg-white border-[3px] border-black shadow-[4px_4px_0px_var(--green)] z-30 transform rotate-45" />
                         </div>
 
-                        {/* Vertical connecting line */}
-                        <div className={`absolute top-[60px] md:top-[70px] bottom-[30px] left-[7px] md:left-[39px] w-[2px] bg-gradient-to-b from-green-500/50 to-transparent transition-all duration-1000 origin-top ${phase >= 3 ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`} />
-
                         {/* Children Container */}
-                        <div className="flex flex-col gap-4 mt-8 md:mt-10">
+                        <div className="flex flex-col gap-8 mt-10 w-full max-w-3xl items-center relative z-20">
                             {branches.map((branch, i) => (
                                 <div
                                     key={i}
-                                    className={`flex items-center relative z-10 w-full transition-all duration-700 transform ${phase >= 3 ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'}`}
-                                    style={{ transitionDelay: `${200 + i * 150}ms` }}
+                                    className={`flex items-center justify-center relative z-30 w-full transition-all duration-[500ms] ease-out transform ${phase >= 3 ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}
+                                    style={{ transitionDelay: `${300 + i * 150}ms` }}
                                 >
-
-                                    {/* Horizontal connection segment */}
-                                    <div className="w-[30px] md:w-[60px] h-[2px] bg-green-900/50 ml-[8px] shrink-0" />
-
                                     {/* Child Node Box */}
-                                    <div className="flex-1 bg-[#090d09] border-y border-r border-green-900/30 border-l-[4px] border-l-green-900 hover:border-l-[var(--green)] hover:bg-[#0c140c] transition-all group flex flex-col xl:flex-row items-start xl:items-center justify-between p-4 md:px-6 relative shadow-[0_5px_15px_rgba(0,0,0,0.5)] cursor-default">
+                                    <div className={`w-[90%] md:w-[85%] border-[4px] border-white bg-[#0c100c] hover:bg-[#151c15] transition-all group flex flex-col md:flex-row items-center justify-between p-5 md:px-8 relative cursor-default ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'} hover:scale-105 hover:z-40`}
+                                        style={{ boxShadow: `8px 8px 0px ${branch.color}` }}>
 
                                         {/* Inner Content Left */}
-                                        <div className="flex items-center gap-3 md:gap-5 mb-3 xl:mb-0 w-full xl:w-auto overflow-hidden">
-                                            <div className="mono text-[0.6rem] text-[#555] group-hover:text-[var(--green)] transition-colors w-[50px] tracking-widest shrink-0">
+                                        <div className="flex flex-col md:flex-row items-center gap-4 mb-4 md:mb-0 w-full md:w-auto text-center md:text-left">
+                                            <div className="mono text-[0.85rem] font-black text-black bg-white px-2 py-1 transform -skew-x-6 tracking-widest shadow-[2px_2px_0px_#000] inline-block">
                                                 {branch.key}
                                             </div>
-                                            <div className="playfair text-xl md:text-2xl font-bold text-[var(--white)] tracking-wide group-hover:text-green-300 truncate">
-                                                /{branch.name}
+                                            <div className="mono text-3xl md:text-4xl font-black tracking-tighter text-white truncate flex items-center justify-center gap-2 group-hover:px-2 transition-all">
+                                                <span className="text-[var(--muted)] opacity-80">/</span>
+                                                <span style={{ textShadow: `2px 2px 0px ${branch.color}` }}>{branch.name}</span>
                                             </div>
                                         </div>
 
                                         {/* Inner Content Right (Notes) */}
-                                        <div className="flex items-center w-full xl:w-auto pl-[62px] xl:pl-0 shrink-0">
-                                            <span className="mono text-[0.7rem] md:text-[0.85rem] tracking-wider text-[var(--muted)] border border-green-900/30 px-3 py-1.5 bg-black/50 overflow-hidden text-ellipsis w-full xl:w-auto text-center xl:text-left">
+                                        <div className="flex items-center justify-center w-full md:w-auto mt-2 md:mt-0">
+                                            <span className="mono text-[0.8rem] font-black tracking-widest uppercase text-black bg-white px-4 py-2 w-full md:w-auto text-center shadow-[4px_4px_0px_#000] transform skew-x-3 group-hover:skew-x-0 transition-transform">
                                                 {branch.note}
                                             </span>
                                         </div>
-
-                                        {/* Decorative node highlight flash */}
-                                        <div className="absolute right-0 top-0 bottom-0 w-32 bg-[var(--green)] opacity-0 group-hover:opacity-[0.03] transition-opacity blur-2xl pointer-events-none" />
                                     </div>
                                 </div>
                             ))}
